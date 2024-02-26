@@ -15,9 +15,9 @@
 \askforoverwritefalse
 \preamble
 ---------:| ---------------------------------------------------------------
-xduthesis:| XeLaTeX template for writing Xidian University Thesis
-   Author:| Fei Qi
-   E-mail:| fred.qi@ieee.org
+xduthesis:| XeLaTeX template for writing Xidian University Thesis (fine tuning for doctor dissertation)
+   Author:| Fei Qi; Johann Li
+   E-mail:| fred.qi@ieee.org; me@qinka.pro or yuehan.li@stu.xidian.edu.cn
   License:| Released under the LaTeX Project Public License v1.3c or later
       See:| http://www.latex-project.org/lppl.txt
 
@@ -25,6 +25,9 @@ xduthesis:| XeLaTeX template for writing Xidian University Thesis
 \postamble
 
 Copyright (C) 2008-2016 by Fei Qi <fred.qi@ieee.org>
+Copyright (C) 2024 Johann Li <me@qinka.pro,yuehan.li@stu.xidian.edu.cn>
+
+Original work:
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License (LPPL), either
@@ -39,6 +42,21 @@ Fei Qi.
 This work consists of the file xduthesis.dtx and a Makefile.
 Running "make" generates the derived files xduthesis.pdf and xduthesis.cls.
 Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+Fork work:
+
+This fork may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This fork is "maintained" (as per LPPL maintenance status) by Johann Li.
+
+This work consists of the file xduthesis.dtx and a Makefile.
+Running "make" generates the derived files xduthesis.pdf and xduthesis.cls.
 Running "make install" installs the files in the local TeX tree.
 
 \endpostamble
@@ -58,7 +76,7 @@ Running "make install" installs the files in the local TeX tree.
 \nopreamble\nopostamble
 % \usedir{doc/xelatex/xduthesis}
 % \generate{
-%   \file{README.rst}{\from{\jobname.dtx}{readme}}
+%   \file{README.md}{\from{\jobname.dtx}{readme}}
 % }
 \ifx\fmtname\nameofplainTeX
   \expandafter\endbatchfile
@@ -72,90 +90,32 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{xduthesis.dtx}[2015/09/11 1.0.0 Xidian University Thesis Template]
+\ProvidesExplFile{xduthesis.dtx}{2024/02/26}{1.0.1}{Xidian University Thesis Template (fine tune for doctor dissertation)}
 %</driver>
-%<class>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
-%<class>\ProvidesClass{xduthesis}
-%<config>\ProvidesFile{xduthesis.cfg}
-%<class|config>    [2015/09/11 1.0.0 Xidian University Thesis Template]
+%<class>\RequirePackage{expl3}
+%<class>\RequirePackage{l3keys2e}
+%<class>\ProvidesExplClass{xduthesis}
+%<config>\ProvidesExplFile{xduthesis.cfg}
+%<class|config>{2024/02/26}{1.0.1}{Xidian University Thesis Template (fine tune for doctor dissertation)}
 %<*driver>
-\documentclass{ltxdoc}
+\documentclass{l3doc}
 \usepackage{amssymb}
 \usepackage{url}
 \usepackage{metalogo}
 \usepackage[normalem]{ulem}
 \usepackage{xeCJK}
-\setCJKmainfont[BoldFont={Adobe Heiti Std}]{Adobe Song Std}
+\setCJKmainfont[BoldFont = SimHei , ItalicFont = KaiTi]{SimSun}
 \usepackage{indentfirst}
 % \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
-\usepackage[numbered]{hypdoc}
-\setlength{\parskip}{4pt plus1pt minus0pt}
-\setlength{\topsep}{0pt}
-\setlength{\partopsep}{0pt}
-\setlength{\parindent}{20pt}
-\addtolength{\oddsidemargin}{-1cm}
-\advance\textwidth 1.5cm
-\addtolength{\topmargin}{-1cm}
-\addtolength{\headsep}{0.3cm}
-\addtolength{\textheight}{2.3cm}
-\renewcommand{\baselinestretch}{1.3}
-
-\makeatletter
-\def\tableofcontents{\renewcommand{\baselinestretch}{1.0}\@starttoc{toc}}
-\def\DescribeOption#1{\SpecialOptionIndex{#1}}
-\def\DescribeMacro{\Describe@Macro}
-\def\Describe@Macro#1{\PrintDescribeMacro{#1}\SpecialUsageIndex{#1}}
-\def\PrintDescribeMacro#1{{\color{-red!75!green!50!blue!55}\MacroFont \string #1\hskip1em }}
-\def\ps@headings{%
-  \let\@oddfoot\@empty
-  \def\@oddhead{\vbox{\hbox
-    to\textwidth{\llap{\fbox{\rightmark\rule[-2pt]{0pt}{13pt}}}\hfil\thepage}\vskip-0.7pt
-      \hbox to \textwidth{\hrulefill}}}%
-  \let\@evenfoot\@oddfoot
-  \let\@evenhead\@oddhead
-  \let\@mkboth\markboth
-  \def\sectionmark##1{%
-    \markright{\ifnum \c@secnumdepth >\m@ne
-      \thesection\quad
-      \fi
-      ##1}}
-  \def\subsectionmark##1{%
-    \markright{\ifnum \c@secnumdepth >\m@ne
-      \thesubsection\quad
-      \fi
-      ##1}}
-  \def\subsubsectionmark##1{%
-    \markright{\ifnum \c@secnumdepth >\m@ne
-      \thesubsubsection\quad
-      \fi
-      ##1}}}
-\renewcommand\section{\@startsection {section}{1}{\z@}%
-                              {-3.5ex \@plus -1ex \@minus -.2ex}%
-                              {2.3ex \@plus.2ex}%
-                              {\normalfont\Large\bfseries}}
-\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
-                                  {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                  {1.5ex \@plus .2ex}%
-                                  {\normalfont\large\bfseries}}
-\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-                                           {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                           {1.5ex \@plus .2ex}%
-                                           {\normalfont\normalsize\bfseries}}
-\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
-                                           {3.25ex \@plus1ex \@minus.2ex}%
-                                           {-1em}%
-                                           {\normalfont\normalsize\bfseries}}
-\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
-                                                 {3.25ex \@plus1ex \@minus .2ex}%
-                                                 {-1em}%
-                                                 {\normalfont\normalsize\bfseries}}
-\makeatother
+\usepackage{hypdoc}
 
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
 \begin{document}
+  \DisableImplementation
   \DocInput{\jobname.dtx}
+  \EnableImplementation
   \clearpage
 \end{document}
 %</driver>
@@ -166,6 +126,7 @@ Running "make install" installs the files in the local TeX tree.
 % \GetFileInfo{xduthesis.dtx}
 % \MakeShortVerb{\|}
 %
+% \changes{v1.0.1}{2024/02/26}{开始针对 博士学位论文进行优化；并转向 \LaTeX3}
 % \changes{v0.9.9}{2014/04/19}{Naming changed from xdthesis to xduthesis.}
 % \changes{v0.9.4}{2012/01/10}{Made the full support for the master option.}
 % \changes{v0.9.3a}{2011/12/13}{Fixed line space and chapter space in TOC.}
@@ -176,10 +137,7 @@ Running "make install" installs the files in the local TeX tree.
 % \changes{v0.2}{2009/06/06}{Defined styles of fonts, names, and titles and floats formats.}
 % \changes{v0.1}{2008/06/24}{The \XeLaTeX\ template for writing thesis of Xidian starts.}
 %
-% \def\xduthesis{\texttt{XDU}-\texttt{Thesis}}
-% \def\xduthesis{$\mathbb{XDU}$-$\mathcal{THESIS}$}
 % \def\pkg#1{\texttt{#1}}
-% \def\xdu{西安电子科技大学}
 %
 % \DoNotIndex{\begin,\end,\begingroup,\endgroup}
 % \DoNotIndex{\ifx,\ifdim,\ifnum,\ifcase,\else,\or,\fi}
@@ -201,37 +159,34 @@ Running "make install" installs the files in the local TeX tree.
 % \renewcommand{\abstractname}{摘~~要}
 % \renewcommand{\contentsname}{目~~录}
 %
-% \title{\xduthesis：\xdu{}学位论文模板\thanks{Xidian University \XeLaTeX{}
-%     Thesis Template.}}
-% \author{齐飞\\[5pt] \texttt{fred.qi@ieee.org}}
-% \date{v\fileversion\ (\filedate)}
+% \title{西安电子科技大学学位论文 \LaTeX3 模板 \\（博士微调版本）}
+% \author{李约瀚 \\ Johann Li \\ me@qinka.pro \\ yuehan.li@stu.xidian.edu.cn}
+% \date{\fileversion\ (\filedate)}
 %
 % \maketitle\thispagestyle{empty}
 %
 % \begin{abstract}
-%   本宏包旨在建立一个简单易用的、符合西安电子科技大学各级学位撰写格式要求的论文
-%   模板。目前已经完整支持从学士到硕士及博士学位论文的最新格式。目前研究生论文
-%   （硕士、博士学位论文）符合研究生院2014年发布的学位论文版式要求。
+%   本宏包基于齐飞老师 \url{https://github.com/fredqi/xduthesis} 论文模板，构建一个 \LaTeX3 版本的
+%   西安电子科技大学博士学位论文模板，并根据 2022年更新 Word 版本校对。
 % \end{abstract}
 %
-% \vskip2cm 
+% \vskip2cm
 % \def\abstractname{免责声明}
 % \begin{abstract}
 % \noindent
 % \begin{enumerate}
-% \item 本模板的发布遵守~\LaTeX{} Project Public License (v1.3c)
-% \footnote{\url{http://www.latex-project.org/lppl.txt}}，使用前请认真阅读协议内容。
-% \item 本模板为作者根据\xdu{}教务处颁布的《本科生毕业设计（论文）工作手册》、研
+% \item 本模板的发布遵守 \href{http://www.latex-project.org/lppl.txt}{\LaTeX Project Public License (v1.3c)}，
+% 使用前请认真阅读协议内容。任何个人或组织以本模板为基础进行修改、扩展而生成的新的专用模板，
+%  请严格遵守 \LaTeX Project Public License 协议。由于违犯协议而引起的任何纠纷争端均与本模板作者无关。
+% \item 本模板为 齐飞老师的 \href{https://github.com/fredqi/xduthesis}{fredqi/xduthesis} 的代码修改而成。
+% \item 本模板为作者根据西安电子科技大学教务处颁布的《本科生毕业设计（论文）工作手册》、研
 %   究生院颁布的《西安电子科技大学研究生学位论文撰写标准》编写而成，旨在
-%   供\xdu{}毕业生撰写学位论文使用。
+%   供西安电子科技大学毕业生撰写学位论文使用。
 % \item 此模板仅为写作指南的参考实现，不保证格式审查老师不提任何意见。任何由于使
 %   用本模板而引起的论文格式审查问题均与本模板作者无关。
-% \item 任何个人或组织以本模板为基础进行修改、扩展而生成的新的专用模板，请严格遵
-%   守~\LaTeX{} Project Public License 协议。由于违犯协议而引起的任何纠纷争端均与
-%   本模板作者无关。
 % \end{enumerate}
 % \end{abstract}
-% 
+%
 % \clearpage
 % \begin{multicols}{2}[
 % \section*{\contentsname}
@@ -246,50 +201,21 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \section{模板介绍}
 %
-% 本模板为作者根据\xdu{}教务处颁布的《本科生毕业设计（论文）工作手册》以及研究生
-% 院颁布的《西安电子科技大学研究生学位论文撰写标准》编写而成，旨在供\xdu{}毕业生
-% 撰写学位论文使用。目前模板支持从学士到硕士、博士等三级学位论文的排版。
-% 
-% 模板在~\texttt{examples} 目录下提供了学士学位论
-% 文(\texttt{thesis-bachelor.tex})、硕士学位论文(\texttt{thesis-master.tex})、专
-% 业硕士学位论文(\texttt{thesis-masterpro.tex})以及博士学位论
-% 文(\texttt{thesis-doctor.tex})的使用示例。用户可以选择自己需要的样例，并在样例
-% 的基础上修改使用。这此论文样例的实际内容为模板的使用说明，建议在使用模板前认真
-% 阅读。为方便用户阅读，该说明按照博士学位论文版式进行了编译，并随模板一同发布(文
-% 件\texttt{thesis-doctor.pdf})。
+% 本模板为根据 齐飞老师\href{https://github.com/fredqi/xduthesis}{fredqi/xduthesis} 的论文模板与研究生
+% 院颁布的《西安电子科技大学研究生学位论文撰写标准》编写而成。目前模板主要针对博士学位论文的排版。
+% 目前模板采用了 \LaTeX3 相关规范实现。
 %
-% 模板在~\texttt{texlive} (\url{https://www.tug.org/texlive/}) 下进行了详细的测试，
-% 能够正常工作。对于其他~\XeLaTeX{}~的发布版本，由于没有进行完整测试，暂时无法确
-% 定模板的是否能够正常工作。
-%
-% \xduthesis{} 的主页是：\url{https://github.com/fredqi/xduthesis}。用户可以到该
-% 主页查看模板的开发进展、下载最新版本。如果在使用中遇到问题，请在页面
-% \url{https://github.com/fredqi/xduthesis/issues} 报告您所遇到的问题。希望在报
-% 告错误时能够提供测试代码，以便更快的定位和排查错误。
 %
 % \section*{致谢}
 % \label{sec:thanks}
 %
-% \changes{v0.9.8}{2012/12/26}{补充致谢信息}
+% 首先感谢齐飞老师的 \href{https://github.com/fredqi/xduthesis}{fredqi/xduthesis} 模板与
+% 西安电子科技大学研究生院相关老师与同学所针对 \LaTeX2e 与 MS-Word 所给出的模板。
 %
-% 本模板经过多年不断积累完善，终于达到了可以正式发布的状态。在此对本模板开发、测
-% 试做出贡献与帮助的人一并表示谢意。\pkg{xeCJK}宏包是本模板中文字体支持的基础，模
-% 板中的很多格式在实现方式上参考了\pkg{thuthesis}宏包，在此对这两个宏包的开发人员
-% 孙文昌、刘海洋\footnote{leoliu.pku@gmail.com}、李
-% 清\footnote{sobenlee@gmail.com}与薛瑞尼\footnote{xueruini@gmail.com}等人表示深
-% 挚的谢意。
-%
-% 本模板的本科学位论文封面部分参考了\textrm{bigeagle}等人开发维护
-% 的\pkg{XDBA-thesis}论文模板，在此表示感谢。研究生论文封面由陆丹
-% 峰\footnote{killucs@foxmail.com}参照\pkg{XDBA-thesis}实现了第一个可用版本，在此
-% 亦表示感谢。
-%
-% 在本模板开发过程中，我所指导的硕士生陆丹峰、韩钧宇和谷跃胜、本科毕业生王蓬金、
-% 赵亚龙、博士生吴金建等人先后试用了功能尚不完善、实现存在严重缺陷的开发版本，为
-% 本模板的进一步开发完善提供了宝贵的意见，在此一并表示感谢。
+% TODO
 %
 %
-% \StopEventually{\PrintChanges\PrintIndex}
+% %\StopEventually{\PrintChanges\PrintIndex}
 % \clearpage
 %
 % \section{实现细节}
@@ -448,7 +374,8 @@ Running "make install" installs the files in the local TeX tree.
 % \setCJKfamilyfont{fs}{Adobe Fangsong Std}
 % \setCJKfamilyfont{kai}{Adobe Kaiti Std}
 \fi
-\setmainfont{Times New Roman}
+\RequirePackage{fontspec}
+\setmainfont{Times~New~Roman}
 \setsansfont{Arial}
 \setmonofont{Courier Std}
 % \changes{v0.9.3}{2011/04/20}{引用宏包顺序调整，以避免\texttt{nobreakspace}的问题}
@@ -520,7 +447,7 @@ Running "make install" installs the files in the local TeX tree.
 % \end{macro}
 % \end{macro}
 % \end{macro}
-% 
+%
 % \begin{macro}{\chuhao}
 % \begin{macro}{\xiaochu}
 % \begin{macro}{\yihao}
@@ -615,7 +542,7 @@ Running "make install" installs the files in the local TeX tree.
 \setlength{\footskip}{5ex}
 \addtolength{\textheight}{-3ex}
 \fi
-\setlength\marginparwidth{0cm} 
+\setlength\marginparwidth{0cm}
 \setlength\marginparsep{0cm}
 \setlength{\oddsidemargin}{4cm-1in}
 \setlength{\evensidemargin}{2cm-1in}
@@ -690,7 +617,7 @@ Running "make install" installs the files in the local TeX tree.
   \def\@oddfoot{\ps@xdu@footer@text}%
   \def\@evenfoot{\ps@xdu@footer@text}%
 }
-\def\ps@xdu@headings{% 
+\def\ps@xdu@headings{%
   \def\@oddhead{\vbox{\ps@xdu@header@lefttext\ps@xdu@header@rules}}%
   \def\@evenhead{\vbox{\ps@xdu@header@righttext\ps@xdu@header@rules}}%
   \def\@oddfoot{\ps@xdu@footer@text}%
@@ -705,7 +632,7 @@ Running "make install" installs the files in the local TeX tree.
 % \changes{v0.9.8}{2013/03/14}{修正电子存储方式页眉}
 %
 % 其实可以直接写到~\cs{chapter} 的定义里面。
-%    \begin{macrocode} 
+%    \begin{macrocode}
 \ifxdu@bachelor\ifxdu@english
 \renewcommand{\chaptermark}[1]{%
   \ifodd\c@page%
@@ -1011,22 +938,22 @@ Running "make install" installs the files in the local TeX tree.
 % \end{macro}
 % \end{macro}
 % \end{macro}
-% \end{macro} 
-% \end{macro}
-% \end{macro}
-% \end{macro} 
-% \end{macro}
-% \end{macro}
-% \end{macro} 
-% \end{macro} 
-% \end{macro} 
-% \end{macro} 
 % \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
 % \end{macro}
-% 
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
 %    \begin{macrocode}
 %<*config>
 \def\xdu@universitycode@prefix{学校代码}
@@ -1053,7 +980,7 @@ Running "make install" installs the files in the local TeX tree.
         \ifxdu@masterpro{硕士学位论文}\fi%
   \fi\fi\fi}
 %</config>
-%    \end{macrocode} 
+%    \end{macrocode}
 %
 % \changes{v1.0.0}{2014/11/26}{2014研究生论文封面}
 % \changes{v0.9.8}{2013/03/14}{修正研究生论文封面行距}
@@ -1316,7 +1243,7 @@ Running "make install" installs the files in the local TeX tree.
 %</class>
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 %
 % 封面中论文诚信声明部分。
 %
@@ -1386,7 +1313,7 @@ Running "make install" installs the files in the local TeX tree.
 }
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \begin{macro}{\makecover}
 % \changes{v0.9.5}{2012/06/23}{分成几个小模块来搞，不然这个 macro 太大了，看不过来}
 %
@@ -1413,7 +1340,7 @@ Running "make install" installs the files in the local TeX tree.
 %</class>
 %    \end{macrocode}
 % \end{macro}
-% 
+%
 % \subsubsection{数学相关}
 %\label{sec:maths}
 %
@@ -1447,7 +1374,7 @@ Running "make install" installs the files in the local TeX tree.
               labelsep=xdu@sep,
               font=xdu@capfont,
               justification=centering}
-\captionsetup[table]{position=top, belowskip={1pc-\intextsep}, aboveskip=1pc} 
+\captionsetup[table]{position=top, belowskip={1pc-\intextsep}, aboveskip=1pc}
 \captionsetup[figure]{position=bottom, belowskip={1pc-\intextsep}, aboveskip=1pc}
 \captionsetup[subfloat]{font=xdu@capfont,captionskip=6bp,%
                         nearskip=6bp,farskip=0bp,topadjust=0bp}
@@ -1578,7 +1505,7 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
-% 
+%
 %
 % \subsubsection{参考文献}
 % \label{sec:ref}
@@ -1602,7 +1529,7 @@ Running "make install" installs the files in the local TeX tree.
 % \begin{environment}{thebibliography}
 % 修改默认的thebibliography环境，增加一些调整代码。
 %    \begin{macrocode}
-\renewenvironment{thebibliography}[1]{%    
+\renewenvironment{thebibliography}[1]{%
   \chapter*{\bibname}%
   \wuhao[1.5]%
   \list{\@biblabel{\@arabic\c@enumiv}}%
